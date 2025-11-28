@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mealmatch
+  datasource:
+    url: jdbc:postgresql://localhost:5437/meal_match_db
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+

@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: meal_match_container
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: meal_match_db
+    ports:
+      - "5437:5432"
+    volumes:
+      - meal_match_data:/var/lib/postgresql/data
+
+volumes:
+  meal_match_data:
