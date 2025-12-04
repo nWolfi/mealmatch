@@ -29,7 +29,7 @@ nutritional_value_id text,
 CONSTRAINT fk_ingredient_nutrition FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id) ON DELETE CASCADE,
 CONSTRAINT fk_nutritional_value FOREIGN KEY (nutritional_value_id) REFERENCES nutritional_value(nutritional_value_id) ON DELETE CASCADE);
 
-CREATE TABLE user (
+CREATE TABLE "user" (
 user_id text PRIMARY KEY DEFAULT uuid_generate_v4(),
 email text,
 password_hash text);
@@ -38,12 +38,12 @@ CREATE TABLE user_meal (
 user_meal_id text PRIMARY KEY DEFAULT uuid_generate_v4(),
 user_id text,
 meal_id text,
-CONSTRAINT fk_user_collection FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+CONSTRAINT fk_user_collection FOREIGN KEY (user_id) REFERENCES "user"(user_id) ON DELETE CASCADE,
 CONSTRAINT fk_meal_collection FOREIGN KEY (meal_id) REFERENCES meal(meal_id) ON DELETE CASCADE);
 
 CREATE TABLE review (
 review_id text PRIMARY KEY DEFAULT uuid_generate_v4(),
 user_id text,
 meal_id text,
-CONSTRAINT fk_user_review FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+CONSTRAINT fk_user_review FOREIGN KEY (user_id) REFERENCES "user"(user_id) ON DELETE CASCADE,
 CONSTRAINT fk_meal_review FOREIGN KEY (meal_id) REFERENCES meal(meal_id) ON DELETE CASCADE);
