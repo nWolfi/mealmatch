@@ -1,9 +1,8 @@
 package com.example.mealmatch.user;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -16,7 +15,17 @@ public class UserController {
     }
 
     @PostMapping("/create")
-public User createUser(@RequestBody() UserDto userDto){
+    public User createUser(@RequestBody() UserDto userDto){
         return this.userService.createUser(userDto);
+    }
+
+    @GetMapping()
+    public Optional<User> getUserById(Long userId){
+        return this.userService.getUserById(userId);
+    }
+
+    @GetMapping("/login")
+    public Optional<User> login(UserDto userDto) {
+        return this.userService.login(userDto);
     }
 }
