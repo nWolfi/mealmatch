@@ -19,7 +19,7 @@ public class User {
 
     @Column(name = "email")
     private String email;
-    private String password;
+    private String passwordHash;
 
     @Column(name = "password_hash")
     public void setEmail(String email) {
@@ -30,11 +30,11 @@ public class User {
         return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordHash(String password) {
+        this.passwordHash = password;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 }

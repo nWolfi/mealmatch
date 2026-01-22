@@ -16,27 +16,27 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(UserDto userDto)
-    {
+    public User createUser(CreateUserDto createUserDto) {
         User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setPassword(hashPassword(userDto.getPassword_hash()));
+        user.setEmail(createUserDto.getEmail());
+        user.setPasswordHash(hashPassword(createUserDto.getPassword()));
 
         return this.userRepository.save(user);
     }
 
-    public Optional<User> getUserById(Long userId) {
+    public Optional<User> getUserById(String userId) {
         return this.userRepository.findById(userId);
     }
 
-    public Optional<User> login(UserDto userDto) {
-        Optional<User> user = this.userRepository.findByEmail(userDto.getEmail());
+    public Optional<User> login(CreateUserDto createUserDto) {
+        Optional<User> user = this.userRepository.findByEmail(createUserDto.getEmail());
         if (user.isPresent()) {
             User userEntity = user.get();
-            if (verifyPassword(userDto.getPassword_hash(), userEntity.getPassword())) {
+            if (verifyPassword(createUserDto.getPassword(), userEntity.getPasswordHash())) {
                 return Optional.of(userEntity);
             }
         }
+        //throw exception
         return Optional.empty();
     }
 
@@ -48,7 +48,7 @@ public class UserService {
         return hash;
     }
 
-    verifyPassword(String password, String hash){
+    public Boolean verifyPassword(String password, String hash){
         Argon2 argon2 = Argon2Factory.create();
         return argon2.verify(hash, password.toCharArray());
     }

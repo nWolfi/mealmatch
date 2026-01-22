@@ -14,18 +14,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/create")
-    public User createUser(@RequestBody() UserDto userDto){
-        return this.userService.createUser(userDto);
+    @PostMapping()
+    public User createUser(@RequestBody() CreateUserDto createUserDto){
+        return this.userService.createUser(createUserDto);
     }
 
-    @GetMapping()
-    public Optional<User> getUserById(Long userId){
+    @GetMapping("/user/{id}")
+    public Optional<User> getUserById(@PathVariable("id") String userId){
         return this.userService.getUserById(userId);
     }
 
     @GetMapping("/login")
-    public Optional<User> login(UserDto userDto) {
-        return this.userService.login(userDto);
+    public Optional<User> login(CreateUserDto createUserDto) {
+        return this.userService.login(createUserDto);
     }
 }
