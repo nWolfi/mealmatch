@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,17 +23,11 @@ public class MealController {
     }
 
     @PostMapping()
-    public Meal createMeal(@RequestPart("meal") CreateMealDto createMealDto, @RequestPart("image")MultipartFile image) {
-        return this.mealService.createMeal(createMealDto);
+    public Meal createMeal(@RequestPart("meal") CreateMealDto createMealDto, @RequestPart("image")MultipartFile image) throws IOException {
+
+        return this.mealService.createMeal(createMealDto , image.getBytes());
     }
 
-    @PostMapping("/test")
-    public Meal textCreateMeal(@RequestBody CreateMealDto createMealDto){
-        this.log.error("received create meal request: name={}", createMealDto.name);
-
-
-        return this.mealService.createMeal(createMealDto);
-    }
 
     @GetMapping("/{id}")
     public Optional<Meal> getMealById(@PathVariable("id") String mealId){

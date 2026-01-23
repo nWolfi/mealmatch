@@ -1,0 +1,1 @@
+ALTER TABLE meal add column image BYTEA;

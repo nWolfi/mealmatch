@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,35 +13,26 @@ public class MealService {
 
     private final MealRepository mealRepository;
 
-    private static final Logger log =
-            LoggerFactory.getLogger(MealController.class);
+    private static final Logger log = LoggerFactory.getLogger(MealController.class);
 
     public MealService(MealRepository mealRepository) {
-        this.mealRepository = mealRepository;}
+        this.mealRepository = mealRepository;
+    }
 
-    public Meal createMeal(CreateMealDto createMealDto) {
+    public Meal createMeal(CreateMealDto createMealDto, byte[] imageBytes) {
         Meal meal = new Meal();
         meal.setName(createMealDto.name);
 
-        this.log.error("image size = {}", meal.getImage() != null ? meal.getImage().length : 0);
+        this.log.error("image {}", imageBytes);
 
+        meal.setImage(imageBytes);
+        this.log.error("image {}", meal.getImage());
 
-        if(createMealDto.image != null){
-            meal.setImage(createMealDto.image);
-        }
+        return this.mealRepository.insertMeal(meal.getName(), meal.getImage()) != null ? meal : null;
 
-
-        this.log.error("creating meal: ", meal.getImage());
-
-        Meal savedMeal = mealRepository.save(meal);
-
-        this.log.error("created meal: ", savedMeal.getImage());
-
-        return savedMeal;
     }
 
-
-    public Optional<Meal> getMealById(String mealId){
+    public Optional<Meal> getMealById(String mealId) {
         return this.mealRepository.findById(mealId);
     }
 
