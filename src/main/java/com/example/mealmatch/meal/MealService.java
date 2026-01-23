@@ -24,11 +24,19 @@ public class MealService {
         Meal meal = new Meal();
         meal.setName(createMealDto.name);
 
-        this.log.error("creating meal: ", meal.getName());
+        this.log.error("image size = {}", meal.getImage() != null ? meal.getImage().length : 0);
+
+
+        if(createMealDto.image != null){
+            meal.setImage(createMealDto.image);
+        }
+
+
+        this.log.error("creating meal: ", meal.getImage());
 
         Meal savedMeal = mealRepository.save(meal);
 
-        this.log.error("created meal: ", savedMeal);
+        this.log.error("created meal: ", savedMeal.getImage());
 
         return savedMeal;
     }

@@ -20,9 +20,9 @@ public class Meal {
     @Column(name = "name")
     private String name;
 
-    // @Column(nullable = true)
-    // @Lob()
-    // private byte[] image;
+     @Column(nullable = true)
+     @Lob()
+     private byte[] image;
 
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MealIngredient> mealIngredients = new ArrayList<>();
@@ -35,9 +35,9 @@ public class Meal {
         this.name = name;
     }
 
-    // public void setImage(byte[] image) {
-    //     this.image = image;
-    // }
+     public void setImage(byte[] image) {
+         this.image = image;
+     }
 
     public void setMealIngredients(List<MealIngredient> mealIngredients) {
         this.mealIngredients = mealIngredients;
@@ -51,9 +51,9 @@ public class Meal {
         return name;
     }
 
-    // public byte[] getImage() {
-    //     return image;
-    // }
+     public byte[] getImage() {
+         return image;
+     }
 
     public List<MealIngredient> getMealIngredients() {
         return mealIngredients;

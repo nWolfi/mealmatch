@@ -7,4 +7,5 @@ import java.util.List;
 public class CreateMealDto {
     public String name;
     public List<CreateIngredientDto> ingredients;
+    public byte[] image;
 }
